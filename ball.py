@@ -1,4 +1,6 @@
+import random
 from turtle import Turtle
+from random import Random
 
 
 class Ball(Turtle):
@@ -11,14 +13,30 @@ class Ball(Turtle):
         self.speed("slow")
         self.x_move = 10
         self.y_move = 10
-
+        self.move_speed = 0.05
 
     def move(self):
         new_x = self.xcor() + self.x_move
         new_y = self.ycor() + self.y_move
         self.goto(new_x, new_y)
 
-    def bounce(self):
+    # detect collision with wall
+    # multiplied y_move for -1 to get the opposite negative number, so the ball travels in the other direction
+
+    def bounce_y(self):
         self.y_move *= -1
+
+    # detect collision with paddle
+
+    def bounce_x(self):
+        self.x_move *= -1
+        self.move_speed *= 0.8
+
+    def refresh_position(self):
+        self.goto(0, 0)
+        self.move_speed = 0.05
+        self.bounce_x()
+        self.move()
+
 
 
